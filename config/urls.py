@@ -28,5 +28,14 @@ urlpatterns = [
     path("amadeus/hotels-with-geocode", HotelsWithGeocode.as_view(), name="amadeus-hotels-with-geocode"),
     path("amadeus/hotels-sentiments", HotelSentiments.as_view(), name="amadeus-hotels-sentiments"),
     path("amadeus/hotels-list", HotelList.as_view(), name="amadeus-hotels-list"),
+    path("amadeus/flights-list", FlightsListView.as_view(), name="amadeus-flights-list"),
+    path("amadeus/itinerary-price-metrics", ItineraryPrice.as_view(), name="amadeus-flights-seats"),
+    path("amadeus/flight-destinations", FlightDestinations.as_view(), name="amadeus-flight-destinations"),
+    path("amadeus/flight-cheap", Cheap.as_view(), name="amadeus-flight-cheap"),
+    path("amadeus/flight-recommended-locations", RecommendedLocations.as_view(), name="amadeus-flight-recommended"),
+    path("amadeus/flight-schedule-flights", ScheduleFlights.as_view(), name="amadeus-flight-schedule-flights"),
+    path("amadeus/flight-travel-predictions", TravelPredictions.as_view(), name="amadeus-flight-travel-predictions"),
+    path("amadeus/flight-travel-prediction-on-time", PredictionOnTime.as_view(), name="amadeus-flight-prediction-on-time"),
+
 ]
 
