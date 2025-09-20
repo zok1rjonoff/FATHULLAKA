@@ -10,6 +10,12 @@ CHEAPEST_PRICE = "https://test.api.amadeus.com/v1/shopping/flight-dates"
 TRAVEL_PREDICTIONS = "https://test.api.amadeus.com/v1/travel/predictions/flight-delay"
 RECOMMENDED_LOCATIONS = "https://test.api.amadeus.com/v1/reference-data/recommended-locations"
 PREDICTIONS_ON_TIME = "https://test.api.amadeus.com/v1/airport/predictions/on-time"
+AIRPORT_LOCATIONS_BY_ID = "https://test.api.amadeus.com/v1/reference-data/locations/"
+NEAREST_AIRPORT = "https://test.api.amadeus.com/v1/reference-data/locations/airports"
+AIRPORT_ROUTES = "https://test.api.amadeus.com/v1/airport/direct-destinations"
+CHECK_IN = "https://test.api.amadeus.com/v2/reference-data/urls/checkin-links"
+AIRLINES_INFO = "https://test.api.amadeus.com/v1/reference-data/airlines"
+AIRLINES_ROUTES = "https://test.api.amadeus.com/v1/airline/destinations"
 
 
 def search_list_of_flights(originLocationCode,
@@ -93,5 +99,61 @@ def prediction_on_time(params):
     token = get_access_token()
     headers = {"Authorization": f"Bearer {token}"}
     resp = requests.get(PREDICTIONS_ON_TIME, headers=headers, params=params)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def airport_locations(params):
+    token = get_access_token()
+    headers = {"Authorization": f"Bearer {token}"}
+    resp = requests.get(AIRPORT_LOCATIONS_BY_ID, headers=headers, params=params)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def airport_locations_by_id(locationId):
+    token = get_access_token()
+    headers = {"Authorization": f"Bearer {token}"}
+    resp = requests.get(f"{AIRPORT_LOCATIONS_BY_ID}/{locationId}", headers=headers)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def nearest_airport(params):
+    token = get_access_token()
+    headers = {"Authorization": f"Bearer {token}"}
+    resp = requests.get(NEAREST_AIRPORT, headers=headers, params=params)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def airport_routes(params):
+    token = get_access_token()
+    headers = {"Authorization": f"Bearer {token}"}
+    resp = requests.get(AIRPORT_ROUTES, headers=headers, params=params)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def airport_check_in(params):
+    token = get_access_token()
+    header = {"Authorization":f"Bearer {token}"}
+    resp = requests.get(CHECK_IN,headers=header,params=params)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def airlines_info():
+    token = get_access_token()
+    headers= {"Authorization":f"Bearer {token}"}
+    resp = requests.get(AIRLINES_INFO, headers=headers)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def airlines_routes(params):
+    token = get_access_token()
+    headers = {"Authorization":f"Bearer {token}"}
+    resp = requests.get(AIRLINES_ROUTES,headers=headers,params=params)
     resp.raise_for_status()
     return resp.json()

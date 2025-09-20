@@ -250,6 +250,115 @@ class PredictionOnTime(APIView):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserListCreateApiView(generics.ListCreateAPIView):
-    queryset = Users.objects.all()
-    serializer_class = UsersSerializer
+class AirportLocations(APIView):
+    def get(self, request, locationId=None):
+        if locationId:
+            try:
+                data = airport_locations_by_id(locationId)
+                if not data:
+                    return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
+                return Response(data, status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        subType = request.query_params.get("subType")
+        keyword = request.query_params.get("keyword")
+        if not subType or not keyword:
+            return Response({"error": "Should not be empty"}, status=status.HTTP_400_BAD_REQUEST)
+
+        params = {
+            "subType": subType,
+            "keyword": keyword
+        }
+        try:
+            data = airport_locations(params)
+            if not data:
+                return Response({"error": "Not found "}, status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class NearestAirport(APIView):
+    def get(self, request):
+        latitude = request.query_params.get("latitude")
+        longitude = request.query_params.get("longitude")
+        if not latitude or not longitude:
+            return Response({"error": "Should not be empty"}, status=status.HTTP_400_BAD_REQUEST)
+        params = {
+            "latitude": latitude,
+            "longitude": longitude
+        }
+        try:
+            data = nearest_airport(params)
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AirportRoutes(APIView):
+    def get(self, request):
+        departureAirportCode = request.query_params.get("departureAirportCode")
+        if not departureAirportCode:
+            return Response({"error": "Should not be empty"}, status=status.HTTP_400_BAD_REQUEST)
+        params = {
+            "departureAirportCode": departureAirportCode,
+        }
+        try:
+            data = airport_routes(params)
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AirportCheckIn(generics.ListAPIView):
+    def list(self, request, *args, **kwargs):
+        airlineCode = request.query_params.get("airlineCode")
+        if not airlineCode:
+            return Response({"error":"Should not be empty"}, status=status.HTTP_400_BAD_REQUEST)
+
+        params = {
+            "airlineCode":airlineCode
+        }
+
+        try:
+            data = airport_check_in(params)
+            if not data:
+                return Response({"error":"Not found "}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AirlinesInfo(generics.ListAPIView):
+    def list(self, request, *args, **kwargs):
+        try:
+            data = airlines_info()
+            if not data:
+                return Response({"error":"Data not found "}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AirlinesRoutes(generics.ListAPIView):
+    def list(self, request, *args, **kwargs):
+        airlineCode = request.query_params.get("airlineCode")
+        if not airlineCode:
+            return Response({"error":"Should not be empty"}, status=status.HTTP_400_BAD_REQUEST)
+        params ={
+            "airlineCode":airlineCode
+        }
+        try:
+            data = airlines_routes(params)
+            if not data:
+                return Response({"error":"Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data,status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+

@@ -21,7 +21,6 @@ from hotels.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', UserListCreateApiView.as_view(), name="user-list-create"),
     path("amadeus/cities", CitySearchView.as_view(), name="amadeus-cities"),
     path("amadeus/hotels", HotelById.as_view(), name="amadeus-hotels"),
     path("amadeus/hotels-in-city", HotelInCityView.as_view(), name="amadeus-hotels-in-city"),
@@ -36,6 +35,13 @@ urlpatterns = [
     path("amadeus/flight-schedule-flights", ScheduleFlights.as_view(), name="amadeus-flight-schedule-flights"),
     path("amadeus/flight-travel-predictions", TravelPredictions.as_view(), name="amadeus-flight-travel-predictions"),
     path("amadeus/flight-travel-prediction-on-time", PredictionOnTime.as_view(), name="amadeus-flight-prediction-on-time"),
+    path("amadeus/flight-airport-locations", AirportLocations.as_view(), name="amadeus-flight-airport-locations"),
+    path("amadeus/flight-airport-location/<str:locationId>/", AirportLocations.as_view(), name="amadeus-flight-airport-location-by-id"),
+    path("amadeus/flight-nearest-airport", NearestAirport.as_view(), name="amadeus-flight-nearest-airport"),
+    path("amadeus/flight-airport-routes", AirportRoutes.as_view(), name="amadeus-flight-airport-routes"),
+    path("amadeus/flight-airport-check-in", AirportCheckIn.as_view(), name="amadeus-flight-airport-check-in"),
+    path("amadeus/airlines-info", AirlinesInfo.as_view(), name="amadeus-airlines-info"),
+    path("amadeus/airlines-routes", AirlinesRoutes.as_view(), name="amadeus-airlines-routes"),
 
 ]
 
