@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'hotels',
     'rest_framework_simplejwt',
     'rest_framework',
+    'drf_yasg',
 
 ]
 
