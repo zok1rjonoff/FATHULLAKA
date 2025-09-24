@@ -1,7 +1,7 @@
 import requests
 
-CLIENT_ID = "9Rpw4rGQEfRwKuRVNdI15lxRCEOuWAsH"
-CLIENT_SECRET = "NqYZbbQeoVzxjB2B"
+# CLIENT_ID =
+# CLIENT_SECRET =
 
 AUTH_URL = "https://test.api.amadeus.com/v1/security/oauth2/token"
 CITY_URL = "https://test.api.amadeus.com/v1/reference-data/locations/cities"
